@@ -1,0 +1,23 @@
+{
+  "name": "scavenger-hunts-be",
+  "version": "1.0.0",
+  "description": "scavenger hunts game",
+  "main": "server.js",
+  "scripts": {
+    "test": "test",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saharme/scavenger-hunts-be.git"
+  },
+  "author": "Sahar Menashe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saharme/scavenger-hunts-be/issues"
+  },
+  "homepage": "https://github.com/saharme/scavenger-hunts-be#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
