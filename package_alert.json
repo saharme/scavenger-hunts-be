@@ -1,0 +1,153 @@
+{
+  "name": "webinfra-alert-service",
+  "version": "1.0.320",
+  "description": "Webinfra micro-service handling alerts",
+  "main": "index.js",
+  "scripts": {
+    "start:prod": "node --max-http-header-size=80000 index.js",
+    "db:migrate": "(sequelize db:create --env development || true) && sequelize db:migrate --env development",
+    "db:migrate:rollback": "sequelize db:migrate:undo",
+    "db:migrate:rollback:dev": "sequelize db:migrate:undo --env development",
+    "db:migrate:create:seed": "sequelize seed:generate --seeders-path ./db/seeders --name ",
+    "db:migrate:seed:all": "sequelize db:seed:all --seeders-path ./db/seeders",
+    "lint": "standard",
+    "lint-fix": "standard --fix",
+    "test": "jest '^((?!e2e).)*$' --detectOpenHandles --forceExit",
+    "test-coverage": "jest '^((?!e2e).)*$' --detectOpenHandles --forceExit --coverage",
+    "test-watch": "jest '^((?!e2e).)*$' --detectOpenHandles --forceExit --watch",
+    "test-dev": "npm run lint && cp ~/.npmrc ./.. && npm run test-in-docker && rm ./../.npmrc && docker-compose -f test/docker-compose.yml down",
+    "test-in-docker": "docker-compose -p ALT_${BUILD_NUMBER} -f test/docker-compose.yml up --force-recreate -d --build && docker exec -i alt_${BUILD_NUMBER}_web_1 npm run db:migrate && docker exec -i alt_${BUILD_NUMBER}_web_1 npm test",
+    "test:jest:unit": "jest '/test/unit/.*.test.js$' --detectOpenHandles",
+    "test:jest:integration": "jest '/test/integration/.*.test.js$' --detectOpenHandles",
+    "test:jest:e2e": "jest '/test/e2e/.*.test.js$' --detectOpenHandles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xl8/webinfra-alert-service.git"
+  },
+  "author": "Sahar Menashe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xl8/webinfra-alert-service/issues"
+  },
+  "homepage": "https://github.com/xl8/webinfra-alert-service#readme",
+  "dependencies": {
+    "@types/jest": "^24.0.23",
+    "axios": "^0.19.0",
+    "bluebird": "^2.10.2",
+    "body-parser": "^1.15.0",
+    "express-request-context": "^1.0.3",
+    "express-validation": "^0.4.5",
+    "express-winston": "^1.2.0",
+    "http-status": "^1.0.1",
+    "joi": "^7.3.0",
+    "lodash": "^4.5.1",
+    "memory-cache": "^0.1.6",
+    "moment": "^2.24.0",
+    "mysql": "^2.9.0",
+    "mysql2": "^1.7.0",
+    "request-promise": "^3.0.0",
+    "sequelize": "^5.17.0",
+    "sequelize-cli": "5.0.1",
+    "uuid": "^3.4.0",
+    "webinfra-configuru": "^1.0.3",
+    "webinfra-error-hero": "^1.1.7",
+    "webinfra-frannie": "^2.0.51",
+    "webinfra-infracontext": "^2.0.0",
+    "webinfra-message-bus": "^1.0.34",
+    "winston": "^1.0.1",
+    "yet-another-name-generator": "^1.0.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-syntax-async-functions": "^6.8.0",
+    "babel-plugin-transform-regenerator": "^6.8.0",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-tape-runner": "^2.0.1",
+    "eslint-plugin-jest": "^21.15.0",
+    "jest": "^24.9.0",
+    "nock": "^9.0.2",
+    "nyc": "^8.1.0",
+    "proxyquire": "^1.7.10",
+    "request-promise": "^1.0.2",
+    "rewire": "^4.0.1",
+    "sinon": "^1.17.6",
+    "standard": "^12.0.1",
+    "supertest": "^2.0.0",
+    "supertest-as-promised": "^4.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.5.1",
+    "webapps-app-test-utils": "^2.0.10"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "test": [
+      "jest"
+    ],
+    "plugins": [
+      "syntax-async-functions",
+      "transform-regenerator"
+    ]
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "parser": "babel-eslint",
+    "ignore": [
+      "node_modules",
+      "db"
+    ],
+    "rules": {
+      "no-useless-escape": "false"
+    }
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true,
+      "es6": true,
+      "jest": true
+    },
+    "plugins": [
+      "import",
+      "standard",
+      "node",
+      "security",
+      "jest"
+    ],
+    "extends": [
+      "standard",
+      "plugin:node/recommended"
+    ],
+    "rules": {
+      "no-process-exit": "warn",
+      "jest/no-disabled-tests": "error",
+      "jest/no-focused-tests": "error",
+      "jest/no-identical-title": "error",
+      "node/no-unsupported-features": "off",
+      "node/no-unpublished-require": "off",
+      "security/detect-non-literal-fs-filename": "error",
+      "security/detect-unsafe-regex": "error",
+      "security/detect-buffer-noassert": "error",
+      "security/detect-child-process": "error",
+      "security/detect-disable-mustache-escape": "error",
+      "security/detect-eval-with-expression": "error",
+      "security/detect-no-csrf-before-method-override": "error",
+      "security/detect-non-literal-regexp": "error",
+      "security/detect-object-injection": "warn",
+      "security/detect-possible-timing-attacks": "error",
+      "security/detect-pseudoRandomBytes": "error",
+      "space-before-function-paren": "off",
+      "object-curly-spacing": "off",
+      "no-throw-literal": "off"
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "experimentalObjectRestSpread": true
+      }
+    }
+  }
+}
