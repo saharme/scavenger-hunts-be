@@ -3,9 +3,7 @@ import HttpStatus from 'http-status';
 const path = require('path');
 
 export function getClientApp(request, response) {
-    // return response.status(HttpStatus.OK).send("Client Works well");
-    console.log('path: ' + path.resolve('public') + 'index.html')
-    response.sendFile(path.resolve('public') + '/index.html');
+    response.sendFile(path.resolve('public') + '/temp.html');
 }
 
 const clientRouter = express.Router();
