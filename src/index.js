@@ -3,7 +3,8 @@ import  expressWebServer  from './webServer';
 
 const app = expressWebServer()
   const server = http.createServer(app);
-  server.listen(8000);
+  const port = process.env.PORT || 8000
+  server.listen(port);
 
   // Get server IP address and port binding
   const addr = server.address();
