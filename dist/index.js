@@ -10,7 +10,8 @@ var app = (0, _webServer["default"])();
 
 var server = _http["default"].createServer(app);
 
-server.listen(8000); // Get server IP address and port binding
+var port = process.env.PORT || 8000;
+server.listen(port); // Get server IP address and port binding
 
 var addr = server.address();
 var bind = typeof addr === 'string' ? 'pipe ' + addr : "port ".concat(addr.port);

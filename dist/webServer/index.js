@@ -12,7 +12,7 @@ function expressWebServer() {
   // Creating an ExpressJS app instance
   var app = (0, _express["default"])();
   app.use(_express["default"]["static"](path.resolve('public')));
-  app.use('/', _modules.modulesRouter);
+  app.use('*', _modules.modulesRouter);
   return app;
 }
 
