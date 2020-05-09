@@ -24,14 +24,3 @@ const app = expressWebServer()
   //   console.log('ERROR: Server failed');
   //   console.log(`ERROR: ${JSON.stringify(e.stack)}`);
   // });
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// });
-
-
-
-
-// app.listen(8000, () => {
-//   console.log('Example app listening on port 8000!')
-// });
