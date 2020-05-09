@@ -3,7 +3,7 @@ import HttpStatus from 'http-status';
 const path = require('path');
 
 export function getClientApp(request, response) {
-    response.sendFile(path.resolve('public') + '/temp.html');
+    response.sendFile(path.resolve('public') + '/index.html');
 }
 
 const clientRouter = express.Router();
